@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 final customColorScheme = ColorScheme.fromSeed(
   brightness: Brightness.light,
-  seedColor: const Color.fromARGB(255, 118, 26, 255),
+  seedColor: const Color.fromARGB(255, 243, 134, 67),
   background: const Color.fromARGB(255, 239, 229, 255),
 
 
