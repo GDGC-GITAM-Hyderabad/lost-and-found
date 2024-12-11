@@ -5,8 +5,8 @@ import 'CustomColorScheme.dart';
 
 
 final theme = ThemeData.from(colorScheme: customColorScheme).copyWith(
-  useMaterial3: true,
-  scaffoldBackgroundColor: customColorScheme.background,
+ // useMaterial3: true,
+ // scaffoldBackgroundColor: customColorScheme.background,
   colorScheme: customColorScheme,
   textTheme: GoogleFonts.poppinsTextTheme().copyWith(
 
