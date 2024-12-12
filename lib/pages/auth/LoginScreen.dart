@@ -6,11 +6,6 @@ class LoginScreen extends StatelessWidget{
 
   const LoginScreen({super.key});
 
-  /*
-  final TextEditingController username = TextEditingController();
-  final TextEditingController password = TextEditingController();
-
-   */
 
   @override
   Widget build(BuildContext context) {
@@ -23,32 +18,9 @@ class LoginScreen extends StatelessWidget{
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const Text("Lost & Found", style: TextStyle(fontSize: 24)),
-              const SizedBox(height: 24),
-              /*
-              const TextField(
-                decoration: InputDecoration(
-                  labelText: "username"
-                ),
-              ),
-              const SizedBox(height: 8,),
-              const TextField(
-                decoration: InputDecoration(
-                  labelText: "password",
-
-                ),
-              ),
-              const SizedBox(height: 16),
-              ElevatedButton(onPressed: (){
-              }, child: const Text("Login")),
-
-               */
-
-              const SizedBox(height: 16),
-
-
+              const SizedBox(height: 42),
               SignInButton(Buttons.google, onPressed: ()async{
-                await AuthService().signInGoogle(context);
-
+                await AuthService().signInWithOrganisation(context);
               })
             ],
           )

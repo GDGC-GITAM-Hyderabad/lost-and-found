@@ -4,8 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 import '../pages/Dashboard.dart';
+import '../pages/auth/LoginScreen.dart';
 
-//Authentication service - google login and register methods
+//Authentication service - google sign-in, organisation specific login and sign-out
 class AuthService{
 
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
@@ -19,6 +20,23 @@ class AuthService{
         idToken: googleAuth?.idToken,accessToken: googleAuth?.accessToken
       );
 
+  /*
+      // verifying if its valid GITAM organisation email
+      final UserCredential userCredential = await _firebaseAuth.signInWithCredential(credentials);
+
+      final String email = userCredential.user?.email ?? '';
+
+
+      if (!(email.endsWith('@gitam.in') || email.endsWith('@gitam.edu') || email.endsWith('@student.gitam.edu'))) {
+
+        await _firebaseAuth.signOut();
+         print("Not an organization mail");
+
+        return null;
+      }
+
+ */
+
       return await _firebaseAuth.signInWithCredential(credentials);
 
 
@@ -31,20 +49,30 @@ class AuthService{
 
   }
 
-  //Navigate screen from login to dashboard
-  Future<void> signInGoogle(BuildContext context) async {
+  //verify whether signed-in email is organisation email.
+  Future<void> signInWithOrganisation(BuildContext context) async {
     final userCredential = await loginWithGoogle();
-    if (userCredential != null) {
+    final String email = userCredential?.user?.email ?? '';
+
+    if (email.endsWith('@gitam.in') || email.endsWith('@gitam.edu') || email.endsWith('@student.gitam.edu')) {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (context) => const Dashboard()),
       );
+    }else{
+      await signOut(context);
+      if (kDebugMode) {
+        print("Not an organization mail");
+      }
     }
   }
 
 
-  //signOut method
-  Future<void> signOut() async {
+  //signOut and navigate to Login screen
+  Future<void> signOut(BuildContext context) async {
+
+    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const LoginScreen()),);
+
     await GoogleSignIn().signOut();
     await _firebaseAuth.signOut();
   }
