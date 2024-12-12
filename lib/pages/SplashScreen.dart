@@ -16,7 +16,6 @@ class SplashScreen extends StatelessWidget{
       }else{
         return const LoginScreen();
       }
-
     }
     );
   }
